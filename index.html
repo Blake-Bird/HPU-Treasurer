@@ -1,282 +1,224 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Blake Bird – Freshman Class Treasurer</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Blake Bird — Fun · Funded · Open Books</title>
+  <meta name="description" content="HPU ’29 Treasurer campaign: Fun, funded events; open books monthly; your ideas become real events." />
 
-<!-- ==== Google Fonts ==== -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 
-<!-- ==== Font Awesome (icons) ==== -->
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
 
-<!-- ==== GSAP + ScrollTrigger ==== -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
-        integrity="sha512-9e6j1p+8cXx5ZgVw4FhM5K0TQkE5bYcB2aR7cVf+GdJcPqHfUuG9m0I/7vS4sN3rA5l6L1e+8z4cVZcWjYwBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
-        integrity="sha512-9rM6GQFfJcX0K8k4N7V5j6YgRzH1TtWl+GZxY6bE6aQpJqLw9ZB2sUe/4mT5cD7dA6hKjS8C3fF6p+M0uKXQg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js" defer></script>
+  <!-- PDF.js (thumbnails + viewer) -->
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <script>pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";</script>
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
 
-<!-- ==== Chart.js (ledger chart) ==== -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"
-        integrity="sha256-6Gx+9pZ3n8rVtBzFJcWQK9vUj2M7kT9P5OeD9R1u5aE="
-        crossorigin="anonymous"></script>
-
-<!-- ==== Canvas‑Confetti (celebration) ==== -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"
-        integrity="sha256-+rGfVj3hU4nJ8kA5ZQbD9tR2WgYcKz7BqIYwM5eT1lE="
-        crossorigin="anonymous"></script>
-
-<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-------------------------- 0️⃣ Sticky Top Bar -------------------------->
-<header id="topBar" class="top-bar hidden">
+  <!-- Sticky top bar -->
+  <header id="topBar" class="top-bar hidden">
     <div class="container flex-between">
-        <span class="badge">🗳️ Vote Sunday • Slane Student Center</span>
-        <div class="btn-group">
-            <a href="#" class="btn btn-outline">Add to Calendar</a>
-            <a href="https://maps.google.com/?q=Slane+Student+Center" target="_blank"
-               rel="noopener" class="btn btn-outline">Directions</a>
-        </div>
+      <span class="badge">🗳️ Vote Sunday • Slane Student Center</span>
+      <nav class="btn-group">
+        <a id="addCal" class="btn btn-outline" href="#" aria-label="Add to Calendar">Add to Calendar</a>
+        <a class="btn btn-outline" target="_blank" rel="noopener" href="https://maps.google.com/?q=Slane+Student+Center">Directions</a>
+      </nav>
     </div>
-</header>
+  </header>
 
-<!-------------------------- 1️⃣ Main Content -------------------------->
-<main class="container">
+  <main class="container">
 
-    <!-- ────── A) HERO (fold) ────── -->
-    <section id="hero" class="hero-section">
-        <div class="hero-content">
-            <h1 class="display-1">Smart budgets. Bigger memories.</h1>
-            <p class="lead">
-                Let’s make the Class of 2029 the most fun, most funded,
-                and most united class HPU has ever seen.
-            </p>
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-copy">
+        <h1 class="display">Fun. Funded. Unforgettable.</h1>
+        <p class="lead">Let’s make HPU ’29 the most fun, most funded, and most united class the university has ever seen.</p>
 
-            <!-- Badge chips -->
-            <div class="chip-group">
-                <span class="chip">HP² Energy</span>
-                <span class="chip">Open Books</span>
-                <span class="chip">Data‑Driven</span>
-            </div>
-
-            <!-- CTA buttons -->
-            <div class="cta-group">
-                <a href="#idea" class="btn btn-primary">Pitch an Idea</a>
-                <a href="#plan" class="btn btn-secondary">See the Plan</a>
-                <button class="btn btn-outline open-pdf"
-                        data-pdf="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                        data-title="Blake’s Resume">Open Resume</button>
-            </div>
+        <div class="chips">
+          <span class="chip">HP² Energy</span>
+          <span class="chip">Open Books</span>
+          <span class="chip">Data-Driven</span>
         </div>
 
-        <!-- 3‑D Portrait Orbit (right side) -->
-        <div class="orbit-wrapper">
-            <div class="orbit" id="portraitOrbit">
-                <figure class="portrait" style="--i:0;">
-                    <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=400&h=500&fit=crop"
-                         alt="Blake portrait 1">
-                </figure>
-                <figure class="portrait" style="--i:1;">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=500&fit=crop"
-                         alt="Blake portrait 2">
-                </figure>
-                <figure class="portrait" style="--i:2;">
-                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=500&fit=crop"
-                         alt="Blake portrait 3">
-                </figure>
-            </div>
+        <div class="cta">
+          <a href="#idea" class="btn btn-primary">Pitch an Idea</a>
+          <a href="#plan" class="btn btn-secondary">See the Plan</a>
+          <button class="btn btn-outline open-pdf" data-title="Blake’s Résumé" data-pdf="assets/resume.pdf">Open Résumé</button>
         </div>
+      </div>
+
+      <!-- 3D Portrait orbit -->
+      <div class="orbit-wrap">
+        <div class="orbit" id="portraitOrbit" aria-label="Blake portraits carousel">
+          <figure class="portrait" style="--i:0"><img src="assets/portrait1.jpg" alt="Blake portrait 1"></figure>
+          <figure class="portrait" style="--i:1"><img src="assets/portrait2.jpg" alt="Blake portrait 2"></figure>
+          <figure class="portrait" style="--i:2"><img src="assets/portrait3.jpg" alt="Blake portrait 3"></figure>
+        </div>
+      </div>
+      <div class="bg-stars" aria-hidden="true"></div>
     </section>
 
-    <!-- ────── B) THE PLAN (cards) ────── -->
+    <!-- PLAN -->
     <section id="plan" class="plan-section">
-        <h2 class="section-title">The Plan</h2>
-        <div class="grid-3col gap-24">
-            <article class="glass-card plan-card">
-                <h3>Freshman Formal (All‑Out)</h3>
-                <p>A fully funded, fully planned formal: venue, DJ,
-                    photos, the works. Sponsors + SGA allocation keep tickets
-                    student‑friendly.</p>
-            </article>
-
-            <article class="glass-card plan-card">
-                <h3>Open Books (Monthly)</h3>
-                <p>Every dollar, every month. A public ledger with categories
-                    (events, microgrants, merch, reserves) + downloadable PDF.</p>
-            </article>
-
-            <article class="glass-card plan-card">
-                <h3>Sponsor &amp; Vendor Playbook</h3>
-                <p>Local businesses, alumni, and campus partners offset costs.
-                    Outreach templates + visible timeline.</p>
-            </article>
-        </div>
+      <h2 class="section-title">The Plan</h2>
+      <div class="plan-grid">
+        <article class="glass plan-card" data-speed="0.9">
+          <h3>Freshman Formal (All-Out)</h3>
+          <p>A fully funded, fully planned formal—venue, DJ, photos, the works. Sponsors + SGA allocation keep tickets student-friendly.</p>
+        </article>
+        <article class="glass plan-card" data-speed="0.9">
+          <h3>Open Books (Monthly)</h3>
+          <p>Every dollar, every month. Public ledger with categories (events, microgrants, merch, reserves) + downloadable PDF.</p>
+        </article>
+        <article class="glass plan-card" data-speed="0.9">
+          <h3>Sponsor &amp; Vendor Playbook</h3>
+          <p>Local businesses, alumni, and campus partners offset costs. Outreach templates + visible timeline.</p>
+        </article>
+      </div>
     </section>
 
-    <!-- ────── C) TRANSPARENCY CHART ────── -->
+    <!-- CHART -->
     <section id="chart" class="chart-section">
-        <h2 class="section-title">Open Books – Monthly Ledger</h2>
-        <canvas id="budgetChart"></canvas>
+      <h2 class="section-title">Open Books — Monthly Ledger</h2>
+      <canvas id="budgetChart" aria-label="Ideas submitted vs funded"></canvas>
     </section>
 
-    <!-- ────── D) ABOUT BLAKE ────── -->
+    <!-- ABOUT -->
     <section id="about" class="about-section">
-        <h2 class="section-title">About Blake</h2>
-        <p class="lead">
-            I’m Blake Bird—obsessed with turning ideas into line‑items and
-            line‑items into unforgettable nights. I’m pursuing **four majors**:
-            Accounting, Finance, Physics, and Mathematical Economics,
-            plus a minor in Data Analytics.
-        </p>
-
-        <ul class="checklist">
-            <li>Budget‑first planning: every idea gets a cost, a timeline, and a path to funding.</li>
-            <li>Public accountability: live ledger + monthly PDF report.</li>
-            <li>Student‑first pipeline: top ideas come from you, not a committee.</li>
-        </ul>
+      <h2 class="section-title">About Blake</h2>
+      <p class="about-lead">
+        I’m Blake Bird—obsessed with turning ideas into line-items and line-items into unforgettable nights. I’m pursuing four majors at HPU: <strong>Accounting</strong>, <strong>Finance</strong>, <strong>Physics</strong>, and <strong>Mathematical Economics</strong>. My north star: build systems that are people-first, financially sharp, and transparent.
+      </p>
+      <ul class="about-list">
+        <li><strong>Budget-first planning:</strong> every idea gets a cost, a timeline, and a path to funding.</li>
+        <li><strong>Public accountability:</strong> live ledger + monthly PDF report.</li>
+        <li><strong>Student-first pipeline:</strong> top ideas come from you—not a committee.</li>
+      </ul>
     </section>
 
-    <!-- ────── E) DOCUMENTS (PDF tiles) ────── -->
+    <!-- DOCUMENTS (PDF THUMBNAILS + MODAL) -->
     <section id="documents" class="docs-section">
-        <h2 class="section-title">Documents</h2>
-        <div class="grid-3col gap-24">
-
-            <!-- Resume tile -->
-            <article class="glass-card doc-tile">
-                <h4>Resume</h4>
-                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&fit=crop" alt="Resume preview"
-                     class="doc-preview">
-                <button class="btn btn-outline open-pdf"
-                        data-pdf="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                        data-title="Blake’s Resume">Open</button>
-            </article>
-
-            <!-- Transcript tile -->
-            <article class="glass-card doc-tile">
-                <h4>Transcript</h4>
-                <img src="https://images.unsplash.com/photo-1581091012184-c9c5d9e8a6fd?w=400&fit=crop" alt="Transcript preview"
-                     class="doc-preview">
-                <button class="btn btn-outline open-pdf"
-                        data-pdf="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                        data-title="Blake’s Transcript">Open</button>
-            </article>
-
-            <!-- Common App Essay tile -->
-            <article class="glass-card doc-tile">
-                <h4>Common App Essay</h4>
-                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&fit=crop" alt="Essay preview"
-                     class="doc-preview">
-                <button class="btn btn-outline open-pdf"
-                        data-pdf="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                        data-title="Blake’s Essay">Read</button>
-            </article>
-
-        </div>
+      <h2 class="section-title">Documents</h2>
+      <div class="docs-grid">
+        <article class="glass doc">
+          <canvas class="pdf-thumb" data-src="assets/resume.pdf" width="360" height="480" aria-label="Resume preview"></canvas>
+          <div class="doc-meta">
+            <h4>Résumé</h4>
+            <button class="btn btn-outline open-pdf" data-title="Blake’s Résumé" data-pdf="assets/resume.pdf">Open</button>
+          </div>
+        </article>
+        <article class="glass doc">
+          <canvas class="pdf-thumb" data-src="assets/transcript.pdf" width="360" height="480" aria-label="Transcript preview"></canvas>
+          <div class="doc-meta">
+            <h4>Transcript</h4>
+            <button class="btn btn-outline open-pdf" data-title="Blake’s Transcript" data-pdf="assets/transcript.pdf">Open</button>
+          </div>
+        </article>
+        <article class="glass doc">
+          <canvas class="pdf-thumb" data-src="assets/essay.pdf" width="360" height="480" aria-label="Common App essay preview"></canvas>
+          <div class="doc-meta">
+            <h4>Common App Essay</h4>
+            <button class="btn btn-outline open-pdf" data-title="Blake’s Essay" data-pdf="assets/essay.pdf">Read</button>
+          </div>
+        </article>
+      </div>
+      <p class="micro-note">Tip: host PDFs inside this repo (same origin) so previews always render.</p>
     </section>
 
-    <!-- ────── F) IDEA INTAKE (the heart) ────── -->
+    <!-- IDEA INTAKE -->
     <section id="idea" class="idea-section">
-        <h2 class="section-title">Your idea → budget → event.</h2>
-        <p class="lead">
-            Tell me in 30 seconds. I’ll reply with a cost estimate,
-            sponsor plan, and next steps. Every Sunday I post the pipeline.
-        </p>
+      <h2 class="section-title">Your idea → budget → event.</h2>
+      <p class="lead">Tell me in 30 seconds. I’ll reply with a cost estimate, sponsor plan, and next steps. Every Sunday I post the pipeline.</p>
 
-        <form id="ideaForm" class="glass-card idea-form">
-            <div class="field-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required placeholder="Your full name">
-            </div>
+      <form id="ideaForm" class="glass idea-form" autocomplete="on">
+        <label class="field">
+          <span>Name</span>
+          <input type="text" name="name" required placeholder="Your full name" />
+        </label>
+        <label class="field">
+          <span>HPU Email</span>
+          <input type="email" name="email" required placeholder="you@highpoint.edu" />
+        </label>
+        <label class="field">
+          <span>Idea title</span>
+          <input type="text" name="title" required placeholder="One-line hook" />
+        </label>
+        <label class="field">
+          <span>Describe vibe / location / headcount / must-haves</span>
+          <textarea name="description" rows="4" required placeholder="Give me the details…"></textarea>
+        </label>
+        <button type="submit" class="btn btn-primary btn-full">Submit Idea</button>
+        <p id="formSuccess" class="success hidden">Got it—check your email. You just made this year better.</p>
+      </form>
 
-            <div class="field-group">
-                <label for="email">HPU Email</label>
-                <input type="email" id="email" name="email"
-                       required placeholder="you@hpu.edu">
-            </div>
-
-            <div class="field-group">
-                <label for="title">Idea title</label>
-                <input type="text" id="title" name="title" required
-                       placeholder="One‑line hook">
-            </div>
-
-            <div class="field-group">
-                <label for="description">Describe vibe / location / headcount / must‑haves</label>
-                <textarea id="description" name="description" rows="4"
-                          required placeholder="Give me the details…"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-fullwidth">
-                Submit Idea
-            </button>
-
-            <p id="formSuccess" class="success-msg hidden">
-                Got it—check your email. You just made this year better.
-            </p>
-        </form>
-
-        <!-- Social proof row -->
-        <div class="social-proof">
-            <img src="https://i.pravatar.cc/32?u=1" alt="Avatar 1" class="avatar">
-            <img src="https://i.pravatar.cc/32?u=2" alt="Avatar 2" class="avatar">
-            <img src="https://i.pravatar.cc/32?u=3" alt="Avatar 3" class="avatar">
-            <span>68 classmates submitted ideas this week.</span>
-        </div>
+      <div class="social-proof">
+        <img src="https://i.pravatar.cc/32?u=1" alt="" class="avatar">
+        <img src="https://i.pravatar.cc/32?u=2" alt="" class="avatar">
+        <img src="https://i.pravatar.cc/32?u=3" alt="" class="avatar">
+        <span>68 classmates submitted ideas this week.</span>
+      </div>
     </section>
 
-    <!-- ────── G) LATIN MOTTO (pen‑draw animation) ────── -->
+    <!-- LATIN MOTTO -->
     <section id="motto" class="motto-section">
-        <svg viewBox="0 0 600 120" class="latin-motto-svg">
-            <path id="mottoPath"
-                  d="M30,80 L180,20 L330,80 L480,20"
-                  fill="none"
-                  stroke="#FDE68A"
-                  stroke-width="5"
-                  stroke-linecap="round"/>
-        </svg>
-        <div class="motto-text">
-            <h3>Fiat Festum.</h3>
-            <p class="translation">Let there be a party.</p>
-        </div>
+      <svg viewBox="0 0 600 120" class="motto-svg" role="img" aria-label="Fiat Festum">
+        <path id="mottoPath" d="M30,80 L180,20 L330,80 L480,20" fill="none" stroke="#FDE68A" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <div class="motto-text">
+        <h3>Fiat Festum.</h3>
+        <p class="translation">Let there be a party.</p>
+      </div>
     </section>
 
-    <!-- ────── H) FINAL CTA ────── -->
-    <section id="final-cta" class="final-cta-section">
-        <h2 class="section-title">Ready to make your idea happen?</h2>
-        <div class="cta-group">
-            <a href="#idea" class="btn btn-primary">Pitch an Idea</a>
-            <a href="#plan" class="btn btn-secondary">See the Plan</a>
-        </div>
-
-        <footer class="site-footer">
-            <p>Paid for by Friends of Blake Bird. Not an official HPU site.</p>
-        </footer>
+    <!-- FINAL CTA -->
+    <section id="final" class="final-cta">
+      <h2 class="section-title">Scan at Slane on Sunday</h2>
+      <div class="qr-wrap">
+        <!-- Replace the data URL AFTER you publish (script will fill it too) -->
+        <img id="qr" alt="QR to site" width="220" height="220"
+             src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2F<your-username>.github.io%2F<repo>">
+      </div>
+      <div class="cta">
+        <a href="#idea" class="btn btn-primary">Pitch an Idea</a>
+        <button class="btn btn-secondary open-pdf" data-title="Budget Model" data-pdf="assets/budget-model.pdf">See Budget Model</button>
+      </div>
+      <footer class="site-footer">
+        <p>Paid for by Friends of Blake Bird. Not an official HPU site.</p>
+      </footer>
     </section>
 
-</main>
+  </main>
 
-<!-------------------------- MODALS (PDF viewer & portrait lightbox) -------------------------->
-<div id="pdfModal" class="modal hidden" aria-hidden="true">
-    <div class="modal-content glass-card">
-        <button class="modal-close btn btn-outline">&times;</button>
-        <h4 id="pdfTitle"></h4>
-        <iframe id="pdfIframe" src="" frameborder="0"></iframe>
+  <!-- MODALS -->
+  <div id="pdfModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-content glass">
+      <button class="modal-close btn btn-outline" aria-label="Close">&times;</button>
+      <h4 id="pdfTitle" class="modal-title"></h4>
+      <iframe id="pdfFrame" src="" title="Document viewer"></iframe>
     </div>
-</div>
+  </div>
 
-<div id="lightboxModal" class="modal hidden" aria-hidden="true">
-    <div class="modal-content glass-card lightbox-content">
-        <button class="modal-close btn btn-outline">&times;</button>
-        <img id="lightboxImg" src="" alt="Portrait enlarged">
-        <p id="lightboxCaption"></p>
+  <div id="lightbox" class="modal hidden" aria-hidden="true">
+    <div class="modal-content glass lightbox-content">
+      <button class="modal-close btn btn-outline" aria-label="Close">&times;</button>
+      <img id="lightImg" alt="Portrait large" />
+      <p id="lightCaption">Blake — builder energy, open books, people-first.</p>
     </div>
-</div>
+  </div>
 
-<script src="script.js"></script>
+  <!-- App JS -->
+  <script src="script.js" defer></script>
 </body>
 </html>
