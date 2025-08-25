@@ -60,7 +60,8 @@
       color:var(--hpu-purple);
       box-shadow:0 4px 14px rgba(0,0,0,.12);
     }
-    .links{display:flex;gap:1.2rem;align-items:center}
+    /* desktop spacing bump */
+    .links{display:flex;gap:1.6rem;align-items:center;margin-left:1.2rem}
     .links a{font-weight:600;opacity:.9}
     .links a:hover{opacity:1;text-decoration:underline}
     .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer}
@@ -70,7 +71,7 @@
       .links{
         display:none;position:absolute;top:68px;left:0;width:100%;
         background:rgba(22,12,45,.96);flex-direction:column;align-items:flex-start;padding:1rem;
-        border-top:1px solid rgba(255,255,255,.12)
+        border-top:1px solid rgba(255,255,255,.12);margin-left:0
       }
       .links.active{display:flex}
     }
@@ -136,7 +137,8 @@
       font:italic 36px 'Montserrat',sans-serif;fill:none;stroke:#efe9ff;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;
       stroke-dasharray:var(--len) var(--len);stroke-dashoffset:var(--len)
     }
-    .pen-text.draw{animation:draw 5.2s ease-out forwards .2s}
+    /* slowed down by 2x */
+    .pen-text.draw{animation:draw 10.4s ease-out forwards .2s}
     @keyframes draw{to{stroke-dashoffset:0}}
 
     /* ===== SIGNATURE EVENTS ===== */
@@ -190,12 +192,17 @@
     .step{
       position:relative;background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:1.6rem;box-shadow:var(--shadow)
     }
+    /* move number chips inside so they don't overlap title */
     .step:before{
       counter-increment:step;content:counter(step);
-      position:absolute;top:-14px;left:-14px;width:42px;height:42px;border-radius:50%;
+      position:absolute;top:10px;left:10px;width:42px;height:42px;border-radius:50%;
       display:grid;place-items:center;font:800 1rem var(--font-head);background:#fff;color:var(--hpu-purple);
       box-shadow:0 8px 20px rgba(0,0,0,.24)
     }
+
+    /* keep this headline on one line and scale down when needed */
+    .nowrap{white-space:nowrap}
+    #pipeline h2{font-size:clamp(1.25rem,3vw,2.4rem)}
 
     /* ===== OPEN BOOKS + PLAYBOOK ===== */
     #books{background:#120a26}
@@ -295,7 +302,7 @@
     <canvas class="float-particles" id="particles"></canvas>
     <div class="content">
       <div class="hero-inner">
-        <span class="kicker">High Point University</span>
+        <span class="kicker">Blake Bird • Treasurer 2029</span>
         <h1>FUN. FUNDED. UNFORGETTABLE.</h1>
         <p>We’re the biggest grade — and we will be the best grade — with block parties, real moments, and a calendar that’s actually fun. Not just loud. Extraordinary.</p>
         <div class="cta-row">
@@ -311,23 +318,23 @@
     <div class="container">
       <h2 data-aos="fade-down">Why this will hit different</h2>
       <p class="lead" style="margin-bottom:1.2rem;opacity:.95">
-        Same clean layout & animations you liked — new copy, new energy.
+        Designed for memories, engineered for joy — built to bring people together.
       </p>
       <div class="grid3">
         <div class="card" data-aos="zoom-in" data-aos-delay="100">
           <i>🎉</i>
-          <h3>Legendary Block Parties</h3>
-          <p>Big speakers, theme crews, photo ops, and the details dialed in so it <em>feels</em> like HPU.</p>
+          <h3>Formals &amp; Block Parties</h3>
+          <p>From black-tie formals to foam-tunnel block parties—moments that spark friendships, inside jokes, and photos you’ll frame.</p>
         </div>
         <div class="card" data-aos="zoom-in" data-aos-delay="200">
           <i>📖</i>
           <h3>Open Books, Monthly</h3>
-          <p>Every dollar, every month — public ledger by category (events, microgrants, merch, reserves) with a downloadable PDF.</p>
+          <p>Clear ledger each month—see where every dollar goes. Fundraising that’s actually fun (yes, including dunking the president).</p>
         </div>
         <div class="card" data-aos="zoom-in" data-aos-delay="300">
-          <i>💸</i>
-          <h3>Student-First Prices</h3>
-          <p>Sponsors + SGA funds keep tickets low without cutting what makes nights unforgettable.</p>
+          <i>✨</i>
+          <h3>Actually-Fun Events</h3>
+          <p>Names don’t make nights—design does. Halloween, Valentine’s, and beyond—every detail tuned for joy and unforgettable moments.</p>
         </div>
       </div>
     </div>
@@ -337,7 +344,7 @@
   <section id="motto" data-aos="fade-up">
     <div class="container drawwrap">
       <h2>Fiat Festum</h2>
-      <p class="lead">“Let there be a party.” Say it louder on purple.</p>
+      <p class="lead">“Let there be a party.” Say it louder on purple. <strong>Vote Blake Bird for Treasurer 2029.</strong></p>
       <svg id="mottoSvg" viewBox="0 0 900 100">
         <text id="penline" class="pen-text" x="6%" y="62">
           Fiat Festum — let there be a party.
@@ -393,9 +400,11 @@
         <div class="about-panel" data-aos="fade-left">
           <h2>About Blake Bird</h2>
           <span class="q">“Build what you wish existed — then hold the door open.”</span>
-          <span class="q">“Hype is volume; joy is design. We choose joy.”</span>
+          <span class="q">“Sad has three letters — so does joy. Choose joy.”</span>
           <span class="q">“Every student’s voice — not just the loudest — shapes the night.”</span>
-          <p>I’m Blake — physics brain, builder at heart. We’ll measure twice, party once, and deliver nights people talk about for years.</p>
+          <span class="q">“Planes don’t take off with the wind — they rise against it.”</span>
+          <span class="q">“Never say you can’t; say, ‘I haven’t yet.’”</span>
+          <p>HPU ’29, already through Calculus III <em>before senior year in high school</em>. Studying <strong>Physics</strong>, <strong>Accounting</strong>, <strong>Finance</strong>, and <strong>Mathematical Economics</strong>. Independent research in magnetic spacecraft stabilization and racing-line optimization. Numbers + logistics dialed in — with events that are actually fun.</p>
         </div>
       </div>
     </div>
@@ -404,7 +413,7 @@
   <!-- PIPELINE -->
   <section id="pipeline" data-aos="fade-up">
     <div class="container">
-      <h2>Your idea → budget → event.</h2>
+      <h2 class="nowrap">Your idea → budget → event.</h2>
       <p class="lead">Fast path from “wouldn’t it be wild if…” to a real, funded experience.</p>
       <div class="pipe">
         <div class="step" data-aos="zoom-in" data-aos-delay="50">
@@ -413,11 +422,11 @@
         </div>
         <div class="step" data-aos="zoom-in" data-aos-delay="150">
           <h3>Budget</h3>
-          <p>Line-item plan appears on Open Books. Sponsors + SGA fill the gap. Microgrants (<em>$50–$300</em>) boost floors & orgs for supplies.</p>
+          <p>Line-item plan posts on Open Books. Sponsors + SGA fill the gap. Fundraising is built around experiences (think dunk tank, not bake sale).</p>
         </div>
         <div class="step" data-aos="zoom-in" data-aos-delay="250">
           <h3>Event</h3>
-          <p>Lock venue/DJ/vendors. Clear timeline. Photo/recap next day so everyone sees where effort went.</p>
+          <p>Lock venue/DJ/vendors. Clear timeline. Next-day photo/recap so everyone sees the result — nights we’ll remember for years.</p>
         </div>
       </div>
     </div>
