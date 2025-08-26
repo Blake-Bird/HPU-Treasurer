@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thank You — You Just Made HPU More Fun 🎉</title>
+
+  <!-- AOS for subtle fade-up -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <!-- Google Fonts (to match your main site vibe) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --hpu-purple:#4b2e83;
+      --lavender:#9b72cf;
+    }
+    html, body { margin:0; padding:0; overflow-x:hidden; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background:
+        radial-gradient(900px 460px at 10% 0%, rgba(155,114,207,.18), transparent 60%),
+        radial-gradient(900px 460px at 90% 100%, rgba(75,46,131,.22), transparent 60%),
+        #FAFAFF;
+      color: #222;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+    .thankyou {
+      max-width: 720px;
+      padding: 2.2rem 2rem;
+      background: #fff;
+      border-radius: 18px;
+      border:1px solid rgba(75,46,131,.08);
+      box-shadow: 0 18px 60px rgba(0,0,0,.08);
+    }
+    .kicker{
+      display:inline-block;margin-bottom:.5rem;padding:.3rem .7rem;border-radius:999px;
+      font:700 .78rem 'Montserrat', sans-serif;letter-spacing:.08em;
+      background:rgba(75,46,131,.1);border:1px solid rgba(75,46,131,.2);color:#4b2e83
+    }
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      margin: .35rem 0 .6rem;
+      background: linear-gradient(90deg,#1f1a2b,#4b2e83,#9b72cf);
+      -webkit-background-clip: text; color: transparent;
+      animation: pop .8s ease-out;
+    }
+    p { margin: .75rem auto; line-height: 1.55; max-width: 58ch; }
+    .big { font-size:1.05rem }
+    .btns{ display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center; margin-top:1.2rem }
+    .btn {
+      display:inline-block;
+      padding:.8rem 1.2rem;
+      border-radius:12px;
+      font-weight:700;
+      border:1.5px solid rgba(75,46,131,.25);
+      background:#fff;
+      color:#4b2e83;
+      transition: transform .2s, box-shadow .2s, background .2s;
+      box-shadow:0 10px 22px rgba(0,0,0,.06);
+    }
+    .btn:hover{ transform:translateY(-2px); box-shadow:0 16px 32px rgba(0,0,0,.10) }
+    .btn.primary{ background:#4b2e83; color:#fff; border-color:#4b2e83 }
+    .hint{ opacity:.7; font-size:.95rem; margin-top:.7rem }
+    .egg{
+      margin-top:1.1rem; opacity:.55; font-size:.9rem; user-select:none; cursor:default;
+    }
+    .egg i{ font-style:normal }
+    .toast{
+      display:none; position:fixed; left:50%; bottom:24px; transform:translateX(-50%);
+      background:#1f1a2b; color:#fff; padding:.7rem 1rem; border-radius:10px;
+      box-shadow:0 10px 22px rgba(0,0,0,.25); font-weight:600; z-index:9999;
+    }
+    .show{ display:block; animation:fade .18s ease-out }
+    @keyframes pop { 0%{ transform:scale(.9); opacity:0 } 100%{ transform:scale(1); opacity:1 } }
+    @keyframes fade { from{ opacity:0; transform:translate(-50%,10px)} to{opacity:1; transform:translate(-50%,0)} }
+  </style>
+</head>
+<body>
+  <div class="thankyou" data-aos="fade-up">
+    <span class="kicker">Idea received</span>
+    <h1>Thank you — you just made HPU more fun 🎉</h1>
+    <p class="big">Your idea is on our board. We read every single one and we’ll follow up as we shape the calendar. The goal isn’t noise — it’s <strong>memories</strong> you’ll still be talking about at graduation.</p>
+    <p>Want to help it happen faster? Share this page with one friend and ask them to submit their idea too. The more voices, the better the night.</p>
+
+    <div class="btns">
+      <a class="btn primary" href="https://blake-bird.github.io/HPU-Treasurer/">Back to Home</a>
+      <button id="shareBtn" class="btn">Share this page</button>
+      <button id="copyBtn" class="btn">Copy link</button>
+    </div>
+
+    <p class="hint">P.S. You’re awesome. Expect occasional updates as ideas move into budget → event.</p>
+
+    <!-- tiny wink… the “easter egg” -->
+    <div class="egg" title="totally nothing to see here 😉">
+      <i>psst… nothing happens if you type <strong>BIRD</strong> or click the tiny 🐦… probably.</i> <span id="bird" aria-hidden="true">🐦</span>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Link copied!</div>
+
+  <!-- AOS init -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ duration:600, easing:'ease-out' });</script>
+
+  <!-- confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    // gentle confetti on load
+    confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
+
+    // Share + Copy
+    const shareBtn = document.getElementById('shareBtn');
+    const copyBtn  = document.getElementById('copyBtn');
+    const toast    = document.getElementById('toast');
+    const url = window.location.href;
+
+    shareBtn.addEventListener('click', async () => {
+      const data = { title: 'HPU — Idea Submitted', text: 'I just submitted an event idea. You should too!', url };
+      if (navigator.share) {
+        try { await navigator.share(data); } catch(e) {}
+      } else {
+        try { await navigator.clipboard.writeText(url); showToast(); } catch(e) {}
+      }
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(url); showToast(); } catch(e) {}
+    });
+
+    function showToast(){
+      toast.classList.add('show');
+      setTimeout(()=> toast.classList.remove('show'), 1400);
+    }
+
+    // Easter eggs:
+    // 1) Type B I R D quickly → mega confetti + message
+    // 2) Click the tiny bird → confetti fountain
+    let buffer = '';
+    document.addEventListener('keydown', (e) => {
+      buffer += (e.key || '').toUpperCase();
+      if (buffer.endsWith('BIRD')) {
+        burst('You found the secret! Screenshot & tag your friends to submit too 🫶');
+        buffer = '';
+      }
+      if (buffer.length > 8) buffer = buffer.slice(-8);
+    });
+
+    document.getElementById('bird').addEventListener('click', () => {
+      confetti({ particleCount: 80, spread: 90, origin: { y: 0.6 } });
+      confetti({ particleCount: 80, spread: 70, origin: { y: 0.3 } });
+    });
+
+    function burst(msg){
+      confetti({ particleCount: 220, spread: 100, origin: { y: 0.6 } });
+      confetti({ particleCount: 200, spread: 60, scalar: 1.2 });
+      const note = document.createElement('div');
+      note.className = 'toast show';
+      note.textContent = msg;
+      document.body.appendChild(note);
+      setTimeout(()=> note.remove(), 2200);
+    }
+  </script>
+</body>
+</html>
