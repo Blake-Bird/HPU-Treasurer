@@ -17,7 +17,7 @@
   <style>
     /* ===== THEME ===== */
     :root{
-      --hpu-purple:#4b2e83;      /* High Point vibe purple */
+      --hpu-purple:#4b2e83;
       --hpu-purple-dark:#381f67;
       --lavender:#9b72cf;
       --ink:#1f1a2b;
@@ -42,7 +42,7 @@
 
     .container{width:92%;max-width:1200px;margin:0 auto}
 
-    /* ===== NAV (copied structure/behavior from your reference) ===== */
+    /* ===== NAV ===== */
     nav{
       position:fixed;top:0;left:0;width:100%;
       background:rgba(22,12,45,.7);
@@ -79,7 +79,7 @@
     /* ===== HERO ===== */
     #hero{
       margin-top:68px;position:relative;height:92vh;min-height:620px;overflow:hidden;
-      background:url('images/hpu-hero.jpg') center/cover no-repeat; /* replace with your party/HPU photo */
+      background:url('images/hpu-hero.jpg') center/cover no-repeat;
     }
     #hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,7,28,.55),rgba(14,7,28,.85))}
     #hero .content{
@@ -117,7 +117,7 @@
     h2{font:800 clamp(1.6rem,3.2vw,2.4rem) var(--font-head);margin-bottom:1rem}
     p.lead{opacity:.92;font-size:1.05rem}
 
-    /* ===== 3 PILLARS (re-using your 3-card pattern) ===== */
+    /* ===== 3 PILLARS ===== */
     #pillars{background:#120a26}
     .grid3{display:grid;gap:1.4rem;grid-template-columns:1fr}
     @media(min-width:768px){.grid3{grid-template-columns:repeat(3,1fr)}}
@@ -129,7 +129,7 @@
     .card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.22)}
     .card i{font-size:2rem;margin-bottom:.75rem;color:#e9ddff}
 
-    /* ===== “FIAT FESTUM” (hand-drawn pen effect) ===== */
+    /* ===== “FIAT FESTUM” ===== */
     #motto{background:linear-gradient(180deg,#170c2f,#0f0824)}
     #motto .drawwrap{max-width:920px;margin:0 auto;text-align:center}
     svg#mottoSvg{overflow:visible;margin:14px auto 0;opacity:0;transform:translateY(16px);transition:.6s}
@@ -156,7 +156,7 @@
     .event p{opacity:.92;font-size:.95rem}
     .event:hover{transform:translateY(-6px) rotateX(2deg)}
 
-    /* ===== ABOUT BLAKE + SPINNING PORTRAITS (mobile-safe) ===== */
+    /* ===== ABOUT BLAKE ===== */
     #about{background:#120a26}
     .about-wrap{display:grid;gap:2rem;grid-template-columns:1fr}
     @media(min-width:960px){.about-wrap{grid-template-columns: 420px 1fr}}
@@ -182,7 +182,7 @@
       background:linear-gradient(90deg,#fff,#d8c9ff);-webkit-background-clip:text;color:transparent
     }
 
-    /* ===== “YOUR IDEA → BUDGET → EVENT.” ===== */
+    /* ===== PIPELINE ===== */
     #pipeline{background:linear-gradient(180deg,#150b30,#110826)}
     .pipe{
       display:grid;gap:1.4rem;grid-template-columns:1fr;
@@ -190,31 +190,96 @@
     }
     @media(min-width:900px){.pipe{grid-template-columns:repeat(3,1fr)}}
     .step{
-      position:relative;background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:1.6rem;box-shadow:var(--shadow)
+      position:relative;background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:2.2rem 1.6rem 1.6rem;box-shadow:var(--shadow)
     }
-    /* move number chips inside so they don't overlap title */
+    /* number chips inside, with space so they don't overlap text */
     .step:before{
       counter-increment:step;content:counter(step);
       position:absolute;top:10px;left:10px;width:42px;height:42px;border-radius:50%;
       display:grid;place-items:center;font:800 1rem var(--font-head);background:#fff;color:var(--hpu-purple);
-      box-shadow:0 8px 20px rgba(0,0,0,.24)
+      box-shadow:0 8px 20px rgba(0,0,0,.24);z-index:1;
     }
+    .step h3{padding-left:56px}
 
     /* keep this headline on one line and scale down when needed */
     .nowrap{white-space:nowrap}
     #pipeline h2{font-size:clamp(1.25rem,3vw,2.4rem)}
 
-    /* ===== OPEN BOOKS + PLAYBOOK ===== */
-    #books{background:#120a26}
-    .two{display:grid;gap:1.4rem;grid-template-columns:1fr}
-    @media(min-width:900px){.two{grid-template-columns:1fr 1fr}}
-    .glass{background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:1.6rem;box-shadow:var(--shadow)}
-    .btn-line{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.9rem}
-    .btn-lite{
-      padding:.7rem 1rem;border-radius:12px;border:1.5px solid rgba(255,255,255,.65);background:transparent;color:#fff;font:700 .9rem var(--font-head)
+    /* ===== BOOKS + VIBE (REDESIGN) ===== */
+    #books{
+      position:relative;
+      background:radial-gradient(1200px 600px at 10% 0%, rgba(155,114,207,.25), transparent 60%),
+                 radial-gradient(1000px 500px at 90% 100%, rgba(75,46,131,.35), transparent 65%),
+                 #120a26;
+      overflow:hidden;
+    }
+    /* glow overlay that we’ll drive with --beat */
+    #books::before{
+      content:"";position:absolute;inset:-20%;background:radial-gradient(circle at 50% 50%, rgba(155,114,207,.35), transparent 60%);
+      opacity:var(--beat, .05);
+      filter:blur(calc(30px + 70px * var(--beat, .05)));
+      transition:opacity .1s linear, filter .1s linear;
+      pointer-events:none;
+    }
+    .books-wrap{
+      display:grid;gap:1.6rem;grid-template-columns:1fr;
+      align-items:center;
+    }
+    @media(min-width:980px){.books-wrap{grid-template-columns:1.1fr .9fr}}
+
+    /* left column – no boxes, just clean stacked content */
+    .feature{
+      padding:0 .2rem;
+    }
+    .feature h3{
+      font:800 clamp(1.2rem,2.6vw,1.8rem) var(--font-head);
+      margin-bottom:.4rem;
+    }
+    .tagline{opacity:.92;margin-bottom:.8rem}
+    .badges{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0 1rem}
+    .pill{
+      padding:.45rem .8rem;border-radius:999px;border:1.5px solid rgba(255,255,255,.35);
+      background:rgba(255,255,255,.08);font-weight:700;font-size:.9rem
+    }
+    .links-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.6rem}
+    .link-chip{
+      display:inline-flex;align-items:center;gap:.45rem;
+      padding:.65rem .9rem;border-radius:12px;border:1.5px solid rgba(255,255,255,.55);
+      background:transparent;font:700 .9rem var(--font-head)
     }
 
-    /* ===== DOCUMENTS (3 preview cards → modal sheets) ===== */
+    /* right column – audio CTA */
+    .audio-card{
+      position:relative;display:grid;place-items:center;padding:1.6rem;border-radius:16px;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.25);
+      box-shadow:var(--shadow);
+    }
+    .audio-title{
+      font:800 1.2rem var(--font-head);margin-bottom:.6rem;text-align:center
+    }
+    .play-btn{
+      position:relative;width:120px;height:120px;border-radius:50%;border:none;cursor:pointer;
+      background:#fff;color:var(--hpu-purple);font:800 1rem var(--font-head);
+      display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.3);
+      transition:transform .12s ease;
+    }
+    .play-btn:active{transform:scale(.98)}
+    /* pulsing rings driven by --beat */
+    .play-btn::before, .play-btn::after{
+      content:"";position:absolute;inset:-8px;border-radius:50%;
+      border:2px solid rgba(255,255,255,.7);opacity:.6;transform:scale(calc(1 + var(--beat,0) * .25));
+      box-shadow:0 0 calc(20px + 40px * var(--beat,0)) rgba(212,199,255,.45);
+      transition:box-shadow .08s linear, transform .08s linear;
+    }
+    .play-btn::after{inset:-18px;opacity:.35}
+    .viz{
+      width:100%;height:120px;margin-top:14px;border-radius:10px;background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.15)
+    }
+    .audio-note{opacity:.8;font-size:.95rem;text-align:center;margin-top:.5rem}
+
+    /* ===== DOCUMENTS ===== */
     #docs{background:linear-gradient(180deg,#110826,#0f0824)}
     .cards{display:grid;gap:1.4rem;grid-template-columns:1fr}
     @media(min-width:900px){.cards{grid-template-columns:repeat(3,1fr)}}
@@ -236,7 +301,7 @@
     .iframeWrap{height:calc(85vh - 60px)}
     .iframeWrap iframe{border:0;width:100%;height:100%}
 
-    /* ===== VOICE MATTERS + FORM ===== */
+    /* ===== VOICE ===== */
     #voice{background:#120a26}
     .notice{
       margin:-.5rem 0 1.1rem;padding:.65rem 1rem;border-radius:12px;background:rgba(255,255,255,.12);
@@ -340,7 +405,7 @@
     </div>
   </section>
 
-  <!-- MOTTO (Pen animation) -->
+  <!-- MOTTO -->
   <section id="motto" data-aos="fade-up">
     <div class="container drawwrap">
       <h2>Fiat Festum</h2>
@@ -363,7 +428,7 @@
           <div class="veil"></div>
           <div class="txt">
             <h3>Numerous Block Parties</h3>
-            <p>Biggest class, best class: food trucks, foam tunnel, DJ, purple haze. All with the best people: with future forever friends.</p>
+            <p>Biggest class, best class: food trucks, foam tunnel, DJ, purple haze. All with the best people: future forever friends.</p>
           </div>
         </div>
         <div class="event" data-aos="fade-up" data-aos-delay="150">
@@ -386,7 +451,7 @@
     </div>
   </section>
 
-  <!-- ABOUT BLAKE (portraits + quotes) -->
+  <!-- ABOUT BLAKE -->
   <section id="about" data-aos="fade-up">
     <div class="container">
       <div class="about-wrap">
@@ -432,24 +497,39 @@
     </div>
   </section>
 
-  <!-- OPEN BOOKS & PLAYBOOK -->
+  <!-- OPEN BOOKS + THE VIBE (REDESIGN) -->
   <section id="books" data-aos="fade-up">
     <div class="container">
-      <h2>Transparency & Partners</h2>
-      <div class="two">
-        <div class="glass" data-aos="fade-right">
+      <h2>Open Books + The Vibe</h2>
+
+      <div class="books-wrap">
+        <!-- LEFT: Open Books narrative + badges + links -->
+        <div class="feature" data-aos="fade-right">
           <h3>Open Books (Monthly)</h3>
-          <p>Every dollar, every month. Public ledger with categories (events, microgrants, merch, reserves) + downloadable PDF.</p>
-          <div class="btn-line">
-            <a class="btn-lite" href="open-books.pdf" target="_blank">View Latest PDF</a>
+          <p class="tagline">Every dollar, every month — public ledger by category with a downloadable PDF. You’ll see the plan for Halloween, Valentine’s, formals, and more.</p>
+
+          <div class="badges">
+            <span class="pill">🎃 Halloween</span>
+            <span class="pill">❤️ Valentine’s</span>
+            <span class="pill">🎩 Formal</span>
+            <span class="pill">🎵 Live DJs</span>
+            <span class="pill">📷 Photo Ops</span>
+          </div>
+
+          <div class="links-row">
+            <a class="link-chip" href="open-books.pdf" target="_blank">📄 View Latest Open Books</a>
+            <a class="link-chip" href="sponsor-playbook.pdf" target="_blank">🤝 Sponsor & Vendor Playbook</a>
           </div>
         </div>
-        <div class="glass" data-aos="fade-left">
-          <h3>Sponsor & Vendor Playbook</h3>
-          <p>Local businesses, alumni, and campus partners offset costs. Outreach templates + visible timeline keep everything moving.</p>
-          <div class="btn-line">
-            <a class="btn-lite" href="sponsor-playbook.pdf" target="_blank">Download Playbook</a>
-          </div>
+
+        <!-- RIGHT: Audio CTA + visualizer -->
+        <div class="audio-card" data-aos="fade-left">
+          <div class="audio-title">Our nights will sound like this</div>
+          <button class="play-btn" id="playBtn" aria-label="Play preview">▶</button>
+          <canvas id="viz" class="viz"></canvas>
+          <div class="audio-note">Press play — the page pulses to the beat.</div>
+          <!-- Drop your audio at media/edm-preview.mp3 -->
+          <audio id="vibeTrack" src="media/edm-preview.mp3" preload="auto"></audio>
         </div>
       </div>
     </div>
@@ -487,7 +567,7 @@
       </div>
     </div>
 
-    <!-- Sheets (replace src= with your files in repo) -->
+    <!-- Sheets -->
     <div class="overlay" id="docTranscript">
       <div class="sheet">
         <header><strong>Transcript</strong><button class="close" data-close>&times;</button></header>
@@ -632,6 +712,77 @@
     });
     copyBtn.addEventListener('click', async ()=>{
       try{await navigator.clipboard.writeText(window.location.href); copyBtn.textContent='Copied!'; setTimeout(()=>copyBtn.textContent='Copy link',1200);}catch(e){}
+    });
+
+    /* ===== Audio Visualizer (Open Books + The Vibe) ===== */
+    const playBtn = document.getElementById('playBtn');
+    const audioEl = document.getElementById('vibeTrack');
+    const viz = document.getElementById('viz');
+    const vctx = viz.getContext('2d');
+    let actx, analyser, source, raf, dataArray;
+
+    function drawBars(){
+      if(!analyser) return;
+      const W = viz.width = viz.clientWidth;
+      const H = viz.height = viz.clientHeight;
+      const bufferLength = analyser.frequencyBinCount;
+      if(!dataArray) dataArray = new Uint8Array(bufferLength);
+      analyser.getByteFrequencyData(dataArray);
+
+      // simple bar viz
+      vctx.clearRect(0,0,W,H);
+      const bars = 64; // number of bars drawn
+      const step = Math.floor(bufferLength / bars);
+      const barW = W / bars;
+      let bassAvg = 0, bassCount = 16; // first 16 bins ~ bass
+      for(let i=0;i<bars;i++){
+        const v = dataArray[i*step] / 255;
+        const barH = v * H;
+        vctx.fillStyle = 'rgba(255,255,255,'+(0.25+v*0.7)+')';
+        vctx.fillRect(i*barW, H-barH, barW*0.9, barH);
+        if(i < bassCount) bassAvg += v;
+      }
+      bassAvg /= bassCount;
+
+      // drive section glow + button ring using CSS var --beat (clamped)
+      const beat = Math.min(1, Math.max(0, (bassAvg-0.08)*2.2));
+      document.getElementById('books').style.setProperty('--beat', beat.toFixed(3));
+      playBtn.style.setProperty('--beat', beat.toFixed(3));
+
+      raf = requestAnimationFrame(drawBars);
+    }
+
+    let started = false;
+    playBtn.addEventListener('click', async ()=>{
+      try{
+        if(!started){
+          // create audio context on first user gesture
+          actx = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = actx.createAnalyser();
+          analyser.fftSize = 2048;
+          source = actx.createMediaElementSource(audioEl);
+          source.connect(analyser);
+          analyser.connect(actx.destination);
+          started = true;
+        }
+        if(actx.state === 'suspended') await actx.resume();
+
+        if(audioEl.paused){
+          audioEl.currentTime = 0;
+          await audioEl.play();
+          playBtn.textContent = '⏸';
+          cancelAnimationFrame(raf);
+          drawBars();
+        }else{
+          audioEl.pause();
+          playBtn.textContent = '▶';
+          cancelAnimationFrame(raf);
+          document.getElementById('books').style.setProperty('--beat', 0);
+          playBtn.style.setProperty('--beat', 0);
+        }
+      }catch(err){
+        console.warn('Audio play failed:', err);
+      }
     });
   </script>
 </body>
