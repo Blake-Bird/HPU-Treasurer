@@ -160,17 +160,29 @@
     #about{background:#120a26}
     .about-wrap{display:grid;gap:2rem;grid-template-columns:1fr}
     @media(min-width:960px){.about-wrap{grid-template-columns: 420px 1fr}}
-    .carousel{
-      perspective:1100px;width:100%;max-width:420px;height:420px;margin:0 auto
-    }
-    .car-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:spin 18s linear infinite}
-    .car-inner img{
-      position:absolute;top:50%;left:50%;width:220px;height:220px;object-fit:cover;border-radius:16px;border:1px solid var(--glass-border);
-      transform:translate(-50%,-50%);box-shadow:var(--shadow)
-    }
-    .car-inner img:nth-child(1){transform:translate(-50%,-50%) rotateY(0deg)   translateZ(260px)}
-    .car-inner img:nth-child(2){transform:translate(-50%,-50%) rotateY(120deg) translateZ(260px)}
-    .car-inner img:nth-child(3){transform:translate(-50%,-50%) rotateY(240deg) translateZ(260px)}
+   /* make the stage a bit taller so portraits/landscapes can breathe */
+.carousel{
+  perspective:1100px;width:100%;max-width:420px;height:460px;margin:0 auto;
+}
+
+.car-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:spin 18s linear infinite}
+
+/* key changes: remove fixed height, use contain (no crop), add subtle bg pad */
+.car-inner img{
+  position:absolute;top:50%;left:50%;
+  width:240px;            /* controls the rectangle width */
+  height:auto;            /* let height come from the image’s ratio */
+  object-fit:contain;     /* shows full image, never crops */
+  background:rgba(255,255,255,.06);  /* letterbox/pillarbox looks intentional */
+  border-radius:16px;border:1px solid var(--glass-border);
+  transform:translate(-50%,-50%);box-shadow:var(--shadow)
+}
+
+/* keep the ring distance; you can nudge translateZ if you resize a lot */
+.car-inner img:nth-child(1){transform:translate(-50%,-50%) rotateY(0deg)   translateZ(260px)}
+.car-inner img:nth-child(2){transform:translate(-50%,-50%) rotateY(120deg) translateZ(260px)}
+.car-inner img:nth-child(3){transform:translate(-50%,-50%) rotateY(240deg) translateZ(260px)}
+
     .carousel:hover .car-inner{animation-play-state:paused}
     @keyframes spin{from{transform:rotateY(0)}to{transform:rotateY(-360deg)}}
     .about-panel{
