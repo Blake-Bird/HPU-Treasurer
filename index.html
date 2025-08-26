@@ -60,7 +60,6 @@
       color:var(--hpu-purple);
       box-shadow:0 4px 14px rgba(0,0,0,.12);
     }
-    /* desktop spacing bump */
     .links{display:flex;gap:1.6rem;align-items:center;margin-left:1.2rem}
     .links a{font-weight:600;opacity:.9}
     .links a:hover{opacity:1;text-decoration:underline}
@@ -137,7 +136,6 @@
       font:italic 36px 'Montserrat',sans-serif;fill:none;stroke:#efe9ff;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;
       stroke-dasharray:var(--len) var(--len);stroke-dashoffset:var(--len)
     }
-    /* slowed down by 2x */
     .pen-text.draw{animation:draw 10.4s ease-out forwards .2s}
     @keyframes draw{to{stroke-dashoffset:0}}
 
@@ -160,29 +158,19 @@
     #about{background:#120a26}
     .about-wrap{display:grid;gap:2rem;grid-template-columns:1fr}
     @media(min-width:960px){.about-wrap{grid-template-columns: 420px 1fr}}
-   /* make the stage a bit taller so portraits/landscapes can breathe */
-.carousel{
-  perspective:1100px;width:100%;max-width:420px;height:460px;margin:0 auto;
-}
-
-.car-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:spin 18s linear infinite}
-
-/* key changes: remove fixed height, use contain (no crop), add subtle bg pad */
-.car-inner img{
-  position:absolute;top:50%;left:50%;
-  width:240px;            /* controls the rectangle width */
-  height:auto;            /* let height come from the image’s ratio */
-  object-fit:contain;     /* shows full image, never crops */
-  background:rgba(255,255,255,.06);  /* letterbox/pillarbox looks intentional */
-  border-radius:16px;border:1px solid var(--glass-border);
-  transform:translate(-50%,-50%);box-shadow:var(--shadow)
-}
-
-/* keep the ring distance; you can nudge translateZ if you resize a lot */
-.car-inner img:nth-child(1){transform:translate(-50%,-50%) rotateY(0deg)   translateZ(260px)}
-.car-inner img:nth-child(2){transform:translate(-50%,-50%) rotateY(120deg) translateZ(260px)}
-.car-inner img:nth-child(3){transform:translate(-50%,-50%) rotateY(240deg) translateZ(260px)}
-
+    .carousel{
+      perspective:1100px;width:100%;max-width:420px;height:460px;margin:0 auto;
+    }
+    .car-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:spin 18s linear infinite}
+    .car-inner img{
+      position:absolute;top:50%;left:50%;
+      width:240px;height:auto;object-fit:contain;background:rgba(255,255,255,.06);
+      border-radius:16px;border:1px solid var(--glass-border);
+      transform:translate(-50%,-50%);box-shadow:var(--shadow)
+    }
+    .car-inner img:nth-child(1){transform:translate(-50%,-50%) rotateY(0deg)   translateZ(260px)}
+    .car-inner img:nth-child(2){transform:translate(-50%,-50%) rotateY(120deg) translateZ(260px)}
+    .car-inner img:nth-child(3){transform:translate(-50%,-50%) rotateY(240deg) translateZ(260px)}
     .carousel:hover .car-inner{animation-play-state:paused}
     @keyframes spin{from{transform:rotateY(0)}to{transform:rotateY(-360deg)}}
     .about-panel{
@@ -196,15 +184,11 @@
 
     /* ===== PIPELINE ===== */
     #pipeline{background:linear-gradient(180deg,#150b30,#110826)}
-    .pipe{
-      display:grid;gap:1.4rem;grid-template-columns:1fr;
-      counter-reset:step
-    }
+    .pipe{display:grid;gap:1.4rem;grid-template-columns:1fr;counter-reset:step}
     @media(min-width:900px){.pipe{grid-template-columns:repeat(3,1fr)}}
     .step{
       position:relative;background:var(--glass);border:1px solid var(--glass-border);border-radius:16px;padding:2.2rem 1.6rem 1.6rem;box-shadow:var(--shadow)
     }
-    /* number chips inside, with space so they don't overlap text */
     .step:before{
       counter-increment:step;content:counter(step);
       position:absolute;top:10px;left:10px;width:42px;height:42px;border-radius:50%;
@@ -212,84 +196,63 @@
       box-shadow:0 8px 20px rgba(0,0,0,.24);z-index:1;
     }
     .step h3{padding-left:56px}
-
-    /* keep this headline on one line and scale down when needed */
     .nowrap{white-space:nowrap}
     #pipeline h2{font-size:clamp(1.25rem,3vw,2.4rem)}
 
-    /* ===== BOOKS + VIBE (REDESIGN) ===== */
-    #books{
-      position:relative;
-      background:radial-gradient(1200px 600px at 10% 0%, rgba(155,114,207,.25), transparent 60%),
-                 radial-gradient(1000px 500px at 90% 100%, rgba(75,46,131,.35), transparent 65%),
-                 #120a26;
-      overflow:hidden;
+    /* ===== THE VIBE (brand-new) ===== */
+    #vibe{
+      position:relative;overflow:hidden;
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(155,114,207,.25), transparent 60%),
+        radial-gradient(1000px 500px at 90% 100%, rgba(75,46,131,.35), transparent 65%),
+        #120a26;
+      /* screen glow driven by --beat */
     }
-    /* glow overlay that we’ll drive with --beat */
-    #books::before{
-      content:"";position:absolute;inset:-20%;background:radial-gradient(circle at 50% 50%, rgba(155,114,207,.35), transparent 60%);
-      opacity:var(--beat, .05);
-      filter:blur(calc(30px + 70px * var(--beat, .05)));
-      transition:opacity .1s linear, filter .1s linear;
-      pointer-events:none;
+    #vibe::before{
+      content:"";position:absolute;inset:-20%;
+      background:radial-gradient(circle at 50% 50%, rgba(212,199,255,.45), transparent 60%);
+      opacity:calc(.05 + var(--beat,0)*.5);
+      filter:blur(calc(30px + 90px * var(--beat,0)));
+      transform:translate(calc(var(--shakeX,0px)), calc(var(--shakeY,0px)));
+      pointer-events:none;transition:opacity .08s linear, filter .08s linear, transform .05s linear;
     }
-    .books-wrap{
-      display:grid;gap:1.6rem;grid-template-columns:1fr;
-      align-items:center;
-    }
-    @media(min-width:980px){.books-wrap{grid-template-columns:1.1fr .9fr}}
+    .vibe-grid{display:grid;gap:1.6rem;grid-template-columns:1fr}
+    @media(min-width:980px){.vibe-grid{grid-template-columns:1.1fr .9fr}}
 
-    /* left column – no boxes, just clean stacked content */
-    .feature{
-      padding:0 .2rem;
-    }
-    .feature h3{
-      font:800 clamp(1.2rem,2.6vw,1.8rem) var(--font-head);
-      margin-bottom:.4rem;
-    }
-    .tagline{opacity:.92;margin-bottom:.8rem}
-    .badges{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0 1rem}
-    .pill{
-      padding:.45rem .8rem;border-radius:999px;border:1.5px solid rgba(255,255,255,.35);
-      background:rgba(255,255,255,.08);font-weight:700;font-size:.9rem
-    }
-    .links-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.6rem}
-    .link-chip{
-      display:inline-flex;align-items:center;gap:.45rem;
-      padding:.65rem .9rem;border-radius:12px;border:1.5px solid rgba(255,255,255,.55);
-      background:transparent;font:700 .9rem var(--font-head)
+    .vibe-copy p{opacity:.95;margin:.85rem 0 0;max-width:760px}
+    .vibe-copy .callout{
+      margin-top:1rem;padding:1rem 1.1rem;border-radius:14px;border:1px solid rgba(255,255,255,.22);
+      background:rgba(255,255,255,.08);max-width:820px
     }
 
-    /* right column – audio CTA */
-    .audio-card{
-      position:relative;display:grid;place-items:center;padding:1.6rem;border-radius:16px;
+    .audio-panel{
+      position:relative;display:grid;place-items:center;padding:1.6rem;border-radius:18px;
       background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.25);
-      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.25);box-shadow:var(--shadow);
+      transform:translateZ(0) translate(var(--shakeX,0px), var(--shakeY,0px)) scale(calc(1 + var(--beat,0)*.02));
+      transition:transform .05s linear;
     }
-    .audio-title{
-      font:800 1.2rem var(--font-head);margin-bottom:.6rem;text-align:center
-    }
+    .audio-title{font:800 1.25rem var(--font-head);margin-bottom:.6rem;text-align:center}
     .play-btn{
-      position:relative;width:120px;height:120px;border-radius:50%;border:none;cursor:pointer;
-      background:#fff;color:var(--hpu-purple);font:800 1rem var(--font-head);
-      display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.3);
+      position:relative;width:140px;height:140px;border-radius:50%;border:none;cursor:pointer;
+      background:#fff;color:var(--hpu-purple);font:800 1.1rem var(--font-head);
+      display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.35);
       transition:transform .12s ease;
     }
     .play-btn:active{transform:scale(.98)}
-    /* pulsing rings driven by --beat */
     .play-btn::before, .play-btn::after{
-      content:"";position:absolute;inset:-8px;border-radius:50%;
-      border:2px solid rgba(255,255,255,.7);opacity:.6;transform:scale(calc(1 + var(--beat,0) * .25));
-      box-shadow:0 0 calc(20px + 40px * var(--beat,0)) rgba(212,199,255,.45);
-      transition:box-shadow .08s linear, transform .08s linear;
+      content:"";position:absolute;inset:-10px;border-radius:50%;
+      border:2px solid rgba(255,255,255,.7);opacity:.6;
+      transform:scale(calc(1 + var(--beat,0) * .3));
+      box-shadow:0 0 calc(24px + 50px * var(--beat,0)) rgba(212,199,255,.45);
+      transition:box-shadow .06s linear, transform .06s linear;
     }
-    .play-btn::after{inset:-18px;opacity:.35}
+    .play-btn::after{inset:-22px;opacity:.35}
     .viz{
-      width:100%;height:120px;margin-top:14px;border-radius:10px;background:rgba(255,255,255,.08);
+      width:100%;height:140px;margin-top:16px;border-radius:12px;background:rgba(255,255,255,.08);
       border:1px solid rgba(255,255,255,.15)
     }
-    .audio-note{opacity:.8;font-size:.95rem;text-align:center;margin-top:.5rem}
+    .tip{opacity:.8;font-size:.95rem;text-align:center;margin-top:.6rem}
 
     /* ===== DOCUMENTS ===== */
     #docs{background:linear-gradient(180deg,#110826,#0f0824)}
@@ -304,14 +267,32 @@
     .inner{padding:1.1rem}
     .inner h3{font:800 1.1rem var(--font-head);margin-bottom:.35rem}
     .inner p{opacity:.9;font-size:.95rem;margin-bottom:.8rem}
-    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center;opacity:0;visibility:hidden;transition:.35s;z-index:2000}
+
+    /* Overlays: centered, no background scroll, smooth mobile scrolling */
+    .overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.72);
+      display:flex;align-items:center;justify-content:center;
+      opacity:0;visibility:hidden;transition:.28s;z-index:2000;
+      padding:24px;overscroll-behavior:contain;backdrop-filter:blur(4px);
+    }
     .overlay.open{opacity:1;visibility:visible}
-    .sheet{width:100%;max-width:960px;height:85vh;background:#fff;border-radius:18px 18px 0 0;transform:translateY(100%);transition:.45s}
-    .overlay.open .sheet{transform:translateY(0)}
-    .sheet header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #eee;color:#333}
-    .sheet .close{background:none;border:none;font-size:26px;cursor:pointer;color:#555}
-    .iframeWrap{height:calc(85vh - 60px)}
-    .iframeWrap iframe{border:0;width:100%;height:100%}
+    .sheet{
+      width:min(920px,96vw);height:min(90vh,960px);
+      background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.35);
+      display:flex;flex-direction:column;overflow:hidden;transform:scale(.98);transition:transform .28s ease;
+    }
+    .overlay.open .sheet{transform:scale(1)}
+    .sheet header{
+      flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;
+      padding:12px 16px;border-bottom:1px solid #eee;color:#333
+    }
+    .sheet .close{background:none;border:none;font-size:28px;cursor:pointer;color:#555}
+    .iframeWrap{flex:1 1 auto;min-height:0}
+    .iframeWrap iframe{
+      border:0;width:100%;height:100%;
+      display:block;-webkit-overflow-scrolling:touch
+    }
+    .no-scroll{overflow:hidden}
 
     /* ===== VOICE ===== */
     #voice{background:#120a26}
@@ -367,7 +348,7 @@
         <a href="#events">Signature Events</a>
         <a href="#about">About Blake</a>
         <a href="#pipeline">Idea → Event</a>
-        <a href="#books">Open Books</a>
+        <a href="#vibe">The Vibe</a>
         <a href="#docs">Documents</a>
         <a href="#voice">Voice Matters</a>
       </div>
@@ -509,39 +490,25 @@
     </div>
   </section>
 
-  <!-- OPEN BOOKS + THE VIBE (REDESIGN) -->
-  <section id="books" data-aos="fade-up">
+  <!-- THE VIBE -->
+  <section id="vibe" data-aos="fade-up">
     <div class="container">
-      <h2>Open Books + The Vibe</h2>
-
-      <div class="books-wrap">
-        <!-- LEFT: Open Books narrative + badges + links -->
-        <div class="feature" data-aos="fade-right">
-          <h3>Open Books (Monthly)</h3>
-          <p class="tagline">Every dollar, every month — public ledger by category with a downloadable PDF. You’ll see the plan for Halloween, Valentine’s, formals, and more.</p>
-
-          <div class="badges">
-            <span class="pill">🎃 Halloween</span>
-            <span class="pill">❤️ Valentine’s</span>
-            <span class="pill">🎩 Formal</span>
-            <span class="pill">🎵 Live DJs</span>
-            <span class="pill">📷 Photo Ops</span>
-          </div>
-
-          <div class="links-row">
-            <a class="link-chip" href="open-books.pdf" target="_blank">📄 View Latest Open Books</a>
-            <a class="link-chip" href="sponsor-playbook.pdf" target="_blank">🤝 Sponsor & Vendor Playbook</a>
+      <h2>The Vibe</h2>
+      <div class="vibe-grid">
+        <div class="vibe-copy" data-aos="fade-right">
+          <p class="lead">What does our year feel like? Late-night laughter, friends you didn’t know you needed, and that Friday-night energy that makes the campus hum.</p>
+          <div class="callout">
+            <p>Halloween turns the quad into a neon maze. Winter formals glow like city rooftops. Valentine’s brings the slow-motion moments. Outdoor sets. Cold air. Warm playlists. Photos you’ll frame — not just post.</p>
+            <p style="margin-top:.6rem">We don’t do loud for loud’s sake. We do **designed** nights — lighting, timing, and sound that lift the room. Press play and feel it.</p>
           </div>
         </div>
 
-        <!-- RIGHT: Audio CTA + visualizer -->
-        <div class="audio-card" data-aos="fade-left">
-          <div class="audio-title">Our nights will sound like this</div>
-          <button class="play-btn" id="playBtn" aria-label="Play preview">▶</button>
+        <div class="audio-panel" data-aos="fade-left">
+          <div class="audio-title">Press play — feel the bass</div>
+          <button class="play-btn" id="playBtn" aria-label="Play or pause">▶</button>
           <canvas id="viz" class="viz"></canvas>
-          <div class="audio-note">Press play — the page pulses to the beat.</div>
-          <!-- Drop your audio at media/edm-preview.mp3 -->
-          <audio id="vibeTrack" src="media/edm-preview.mp3" preload="auto"></audio>
+          <div class="tip" id="autoplayTip" hidden>Tap play to start audio</div>
+          <audio id="vibeTrack" src="media/edm-preview.mp3" preload="auto" crossorigin="anonymous"></audio>
         </div>
       </div>
     </div>
@@ -604,24 +571,18 @@
   <section id="voice" data-aos="fade-up">
     <div class="container">
       <h2>Everyone’s voice matters — not just the loudest.</h2>
-      <div class="notice">Please come vote <strong>in person at Slane</strong>. Bring a friend — or five.</div>
+    <div class="notice">Please come vote <strong>in person at Slane</strong>. Bring a friend — or five.</div>
 
       <form class="form" action="https://formsubmit.co/bbird1@highpoint.edu" method="POST">
         <input type="hidden" name="_captcha" value="true"/>
         <input type="hidden" name="_next" value="https://blake-bird.github.io/HPU-Treasurer/thankyou.html"/>
 
         <div class="row">
-          <label>
-            <div class="field"><input type="text" name="name" placeholder="Your name" required/></div>
-          </label>
-          <label>
-            <div class="field"><input type="email" name="email" placeholder="Email" required/></div>
-          </label>
+          <label><div class="field"><input type="text" name="name" placeholder="Your name" required/></div></label>
+          <label><div class="field"><input type="email" name="email" placeholder="Email" required/></div></label>
         </div>
 
-        <label>
-          <div class="field"><textarea name="idea" placeholder="Your idea for an unforgettable event…"></textarea></div>
-        </label>
+        <label><div class="field"><textarea name="idea" placeholder="Your idea for an unforgettable event…"></textarea></div></label>
 
         <div style="margin-top:.6rem">
           <strong style="display:block;margin-bottom:.35rem">How can you help?</strong>
@@ -645,9 +606,7 @@
               </select>
             </div>
           </label>
-          <label>
-            <div class="field"><input type="text" name="phone" placeholder="Phone (optional)"/></div>
-          </label>
+          <label><div class="field"><input type="text" name="phone" placeholder="Phone (optional)"/></div></label>
         </div>
 
         <button class="submit" type="submit">Send & Share</button>
@@ -697,41 +656,74 @@
     if(document.fonts && document.fonts.ready){document.fonts.ready.then(penReady)} else {setTimeout(penReady,300);}
     new IntersectionObserver(([e],o)=>{if(e.isIntersecting){svg.style.opacity=1;svg.style.transform='translateY(0)';pen.classList.add('draw');o.disconnect();}}, {threshold:.35}).observe(svg);
 
-    /* DOC sheets */
+    /* DOC sheets (better UX) */
+    function openOverlay(id){
+      document.querySelector(id).classList.add('open');
+      document.body.classList.add('no-scroll');
+    }
+    function closeOverlay(el){
+      el.classList.remove('open');
+      document.body.classList.remove('no-scroll');
+    }
     document.querySelectorAll('.doc').forEach(card=>{
       const tgt=card.getAttribute('data-open');
       if(!tgt) return;
-      card.addEventListener('click',()=>document.querySelector(tgt).classList.add('open'));
+      card.addEventListener('click',()=>openOverlay(tgt));
     });
-    document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>btn.closest('.overlay').classList.remove('open')));
-    document.querySelectorAll('.overlay').forEach(ov=>ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('open')}));
+    document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>closeOverlay(btn.closest('.overlay'))));
+    document.querySelectorAll('.overlay').forEach(ov=>ov.addEventListener('click',e=>{if(e.target===ov) closeOverlay(ov)}));
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Escape'){
+        document.querySelectorAll('.overlay.open').forEach(ov=>closeOverlay(ov));
+      }
+    });
 
     /* Chips → hidden field */
     const chipbar=document.getElementById('helpChips'), interests=document.getElementById('interestsField');
-    chipbar.addEventListener('click',e=>{
-      const c=e.target.closest('.chip'); if(!c) return;
-      c.classList.toggle('selected');
-      const selected=[...chipbar.querySelectorAll('.chip.selected')].map(x=>x.dataset.name);
-      interests.value = selected.join(', ');
-    });
+    if(chipbar){
+      chipbar.addEventListener('click',e=>{
+        const c=e.target.closest('.chip'); if(!c) return;
+        c.classList.toggle('selected');
+        const selected=[...chipbar.querySelectorAll('.chip.selected')].map(x=>x.dataset.name);
+        interests.value = selected.join(', ');
+      });
+    }
 
     /* Share buttons */
     const shareBtn=document.getElementById('shareBtn'), copyBtn=document.getElementById('copyBtn');
-    shareBtn.addEventListener('click',async ()=>{
-      const data={title:'HPU • FUN. FUNDED. UNFORGETTABLE.', text:'Join us — biggest class, best class.', url:window.location.href};
-      if(navigator.share){ try{ await navigator.share(data);}catch(e){} }
-      else{ try{ await navigator.clipboard.writeText(window.location.href); shareBtn.textContent='Link copied!'; setTimeout(()=>shareBtn.textContent='Share this page',1200);}catch(e){} }
-    });
-    copyBtn.addEventListener('click', async ()=>{
-      try{await navigator.clipboard.writeText(window.location.href); copyBtn.textContent='Copied!'; setTimeout(()=>copyBtn.textContent='Copy link',1200);}catch(e){}
-    });
+    if(shareBtn){
+      shareBtn.addEventListener('click',async ()=>{
+        const data={title:'HPU • FUN. FUNDED. UNFORGETTABLE.', text:'Join us — biggest class, best class.', url:window.location.href};
+        if(navigator.share){ try{ await navigator.share(data);}catch(e){} }
+        else{ try{ await navigator.clipboard.writeText(window.location.href); shareBtn.textContent='Link copied!'; setTimeout(()=>shareBtn.textContent='Share this page',1200);}catch(e){} }
+      });
+    }
+    if(copyBtn){
+      copyBtn.addEventListener('click', async ()=>{
+        try{await navigator.clipboard.writeText(window.location.href); copyBtn.textContent='Copied!'; setTimeout(()=>copyBtn.textContent='Copy link',1200);}catch(e){}
+      });
+    }
 
-    /* ===== Audio Visualizer (Open Books + The Vibe) ===== */
+    /* ===== THE VIBE: Audio + Visuals ===== */
+    const vibeSection = document.getElementById('vibe');
     const playBtn = document.getElementById('playBtn');
     const audioEl = document.getElementById('vibeTrack');
     const viz = document.getElementById('viz');
     const vctx = viz.getContext('2d');
-    let actx, analyser, source, raf, dataArray;
+    const autoplayTip = document.getElementById('autoplayTip');
+
+    let actx, analyser, source, raf, dataArray, graphReady=false, started=false, triedAutoplay=false;
+
+    function setupAudioGraph(){
+      if(graphReady) return;
+      actx = new (window.AudioContext || window.webkitAudioContext)();
+      analyser = actx.createAnalyser();
+      analyser.fftSize = 2048;
+      source = actx.createMediaElementSource(audioEl);
+      source.connect(analyser);
+      analyser.connect(actx.destination);
+      graphReady = true;
+    }
 
     function drawBars(){
       if(!analyser) return;
@@ -741,60 +733,81 @@
       if(!dataArray) dataArray = new Uint8Array(bufferLength);
       analyser.getByteFrequencyData(dataArray);
 
-      // simple bar viz
       vctx.clearRect(0,0,W,H);
-      const bars = 64; // number of bars drawn
-      const step = Math.floor(bufferLength / bars);
+      const bars = 90;
+      const step = Math.max(1, Math.floor(bufferLength / bars));
       const barW = W / bars;
-      let bassAvg = 0, bassCount = 16; // first 16 bins ~ bass
+      let bassAvg = 0, bassCount = 18;
+
       for(let i=0;i<bars;i++){
         const v = dataArray[i*step] / 255;
-        const barH = v * H;
-        vctx.fillStyle = 'rgba(255,255,255,'+(0.25+v*0.7)+')';
-        vctx.fillRect(i*barW, H-barH, barW*0.9, barH);
+        const barH = Math.pow(v, .9) * H; // a little non-linear
+        vctx.fillStyle = 'rgba(255,255,255,'+(0.18+v*0.85)+')';
+        vctx.fillRect(i*barW, H-barH, barW*0.82, barH);
         if(i < bassCount) bassAvg += v;
       }
       bassAvg /= bassCount;
 
-      // drive section glow + button ring using CSS var --beat (clamped)
-      const beat = Math.min(1, Math.max(0, (bassAvg-0.08)*2.2));
-      document.getElementById('books').style.setProperty('--beat', beat.toFixed(3));
+      // Beat → glow + shake
+      const beat = Math.min(1, Math.max(0, (bassAvg-0.05)*2.6));
+      const shake = beat * 6; // px
+      vibeSection.style.setProperty('--beat', beat.toFixed(3));
       playBtn.style.setProperty('--beat', beat.toFixed(3));
+      // tiny randomized shake
+      const sx = ((Math.random()*2-1) * shake).toFixed(2) + 'px';
+      const sy = ((Math.random()*2-1) * shake).toFixed(2) + 'px';
+      vibeSection.style.setProperty('--shakeX', sx);
+      vibeSection.style.setProperty('--shakeY', sy);
 
       raf = requestAnimationFrame(drawBars);
     }
 
-    let started = false;
-    playBtn.addEventListener('click', async ()=>{
+    async function playAudio(){
       try{
-        if(!started){
-          // create audio context on first user gesture
-          actx = new (window.AudioContext || window.webkitAudioContext)();
-          analyser = actx.createAnalyser();
-          analyser.fftSize = 2048;
-          source = actx.createMediaElementSource(audioEl);
-          source.connect(analyser);
-          analyser.connect(actx.destination);
-          started = true;
-        }
+        setupAudioGraph();
         if(actx.state === 'suspended') await actx.resume();
-
         if(audioEl.paused){
-          audioEl.currentTime = 0;
           await audioEl.play();
           playBtn.textContent = '⏸';
           cancelAnimationFrame(raf);
           drawBars();
-        }else{
-          audioEl.pause();
-          playBtn.textContent = '▶';
-          cancelAnimationFrame(raf);
-          document.getElementById('books').style.setProperty('--beat', 0);
-          playBtn.style.setProperty('--beat', 0);
+          autoplayTip && (autoplayTip.hidden = true);
+          started = true;
         }
       }catch(err){
-        console.warn('Audio play failed:', err);
+        // Autoplay likely blocked
+        autoplayTip && (autoplayTip.hidden = false);
+        // console.warn('Audio play failed:', err);
       }
+    }
+    function pauseAudio(){
+      audioEl.pause();
+      playBtn.textContent = '▶';
+      cancelAnimationFrame(raf);
+      vibeSection.style.setProperty('--beat', 0);
+      vibeSection.style.setProperty('--shakeX', '0px');
+      vibeSection.style.setProperty('--shakeY', '0px');
+    }
+
+    // Button toggle
+    playBtn.addEventListener('click', async ()=>{
+      if(audioEl.paused){ await playAudio(); } else { pauseAudio(); }
+    });
+
+    // Try to autoplay when section enters view
+    const vibeObserver = new IntersectionObserver(async ([entry])=>{
+      if(entry.isIntersecting && !triedAutoplay){
+        triedAutoplay = true;
+        await playAudio();
+      }
+    }, { threshold: .6 });
+    vibeObserver.observe(vibeSection);
+
+    // If user interacts anywhere (scroll/click/tap), attempt resume (helps iOS)
+    ['click','touchstart','keydown'].forEach(evt=>{
+      window.addEventListener(evt, async ()=>{
+        if(!started && triedAutoplay){ await playAudio(); }
+      }, { once:true, passive:true });
     });
   </script>
 </body>
